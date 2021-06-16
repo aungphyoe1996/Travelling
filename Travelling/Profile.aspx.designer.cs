@@ -33,6 +33,24 @@ namespace Travelling
         protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
+        /// Literal1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal1;
+
+        /// <summary>
+        /// txtTotalAmt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTotalAmt;
+
+        /// <summary>
         /// btnOrder control.
         /// </summary>
         /// <remarks>

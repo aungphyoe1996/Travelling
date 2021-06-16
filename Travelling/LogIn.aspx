@@ -25,7 +25,7 @@
             <asp:Literal ID="Literal2" runat="server">Password</asp:Literal>
                         </td>
                     <td >
-            <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
                         </td>
                 </tr>
 

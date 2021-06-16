@@ -26,10 +26,13 @@ namespace Travelling
             {
                 btnConfirm.Visible = false;
             }
-            
-        }
+            if (!Page.IsPostBack)
+            {              
+                DropDownList1.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+                DropDownList1.SelectedIndex = 0;             
+            }
 
-    
+        }    
 
         protected void DropDownList1_SelectedIndexChanged1(object sender, EventArgs e)
         {         
@@ -70,15 +73,17 @@ namespace Travelling
             }
             else
             {
-                SqlCommand sq = new SqlCommand("INSERT INTO [dbo].[Order] ([PlaceID],[CarID],[UID],[Period]) VALUES('" + ID + "','" + Convert.ToInt32(DropDownList1.SelectedValue) + "','" + Session["ID"] + "','" + period + "')", con);
+                SqlCommand sq = new SqlCommand("INSERT INTO [dbo].[Order] ([PlaceID],[CarID],[UID],[Period],[EndDate]) VALUES('" + ID + "','" + Convert.ToInt32(DropDownList1.SelectedValue) + "','" + Session["ID"] + "','" + period + "','"+Calendar2.SelectedDate+"')", con);
+                SqlCommand sq1 = new SqlCommand("UPDATE [dbo].[Car] SET [ArrivalDate] = '" + Calendar2.SelectedDate + "' WHERE ID = '" + Convert.ToInt32(DropDownList1.SelectedValue) + "'", con);
                 sq.Parameters.AddWithValue("@PID", ID);
                 sq.Parameters.AddWithValue("@UID", Session["ID"]);
                 sq.Parameters.AddWithValue("@CID", Convert.ToInt32(DropDownList1.SelectedValue));
                 sq.ExecuteNonQuery();
+                sq1.ExecuteNonQuery();
+
+                
+
                 con.Close();
-                //Response.Write(ID);
-                //Response.Write(Session["ID"]);
-                //Response.Write(Convert.ToInt32(DropDownList1.SelectedValue));
                 Response.Redirect("/");
             }
 
@@ -89,16 +94,32 @@ namespace Travelling
         {
 
 
-            int period=Calculate();
-            int total = (period) * Convert.ToInt32(txtPricePerDay.Text);
-            txtTotalAmt.Text = total.ToString();
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
-            int period = Calculate();
-            int total = (period) * Convert.ToInt32(txtPricePerDay.Text);
-            txtTotalAmt.Text = total.ToString();
+
+        }
+
+            
+            protected void Button1_Click1(object sender, EventArgs e)
+        {
+            DateTime d1 = Convert.ToDateTime(Calendar1.SelectedDate);
+            DateTime d2 = Convert.ToDateTime(Calendar2.SelectedDate);
+            if (txtPricePerDay.Text=="")
+            {
+                ClientScript.RegisterStartupScript(Page.GetType(), "validation", "<script language='javascript'>alert('Please Select Car')</script>");
+            }
+            else if (d1 >= d2)
+            {
+                ClientScript.RegisterStartupScript(Page.GetType(), "validation", "<script language='javascript'>alert('Please Check Date')</script>");
+            }
+            else
+            {
+                int period = Calculate();
+                int total = (period) * Convert.ToInt32(txtPricePerDay.Text);
+                txtTotalAmt.Text = total.ToString();
+            }
         }
     }
 }

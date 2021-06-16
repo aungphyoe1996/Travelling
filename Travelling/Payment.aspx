@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td>Amount:</td>
-                <td><asp:TextBox ID="txtAmt" width="250" runat="server" ReadOnly="True"></asp:TextBox></td>
+                <td><asp:TextBox ID="txtAmt" width="250" runat="server"></asp:TextBox></td>
             </tr>
             <tr>
                 <td  >Select Payment:</td>

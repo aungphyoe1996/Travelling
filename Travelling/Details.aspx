@@ -22,8 +22,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    
                     <br /><br />
-                    Description:
-                    <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Bind("Description") %>' />
+                    &nbsp;<asp:Label ID="DescriptionLabel" runat="server" Text='<%# Bind("Description") %>' />
                     <br />
                     
 
@@ -36,11 +35,19 @@
                 <td style="height: 577px">
             <asp:Literal ID="Literal1" runat="server" Text="Select Car"></asp:Literal>
 &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:DropDownList ID="DropDownList1"  runat="server" DataSourceID="SqlDataSource2" DataTextField="CarName" DataValueField="ID" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged1" AutoPostBack="True">
-                <asp:ListItem>Select Car</asp:ListItem>
+            <asp:DropDownList ID="DropDownList1" AppendDataBoundItems="True" runat="server" DataSourceID="SqlDataSource2" DataTextField="CarName" DataValueField="ID" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged1" AutoPostBack="True">
+                
+                             
             </asp:DropDownList>
+                    
 &nbsp;&nbsp;&nbsp;&nbsp;
+                    <br />
+
+
             <br />
+
+
+
             <asp:Literal ID="Literal2" runat="server" Text="Number of Seats"></asp:Literal>
             :&nbsp;
             <asp:TextBox ID="txtNoOfSeat" runat="server" ReadOnly="True"></asp:TextBox>
@@ -84,20 +91,26 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:TextBox ID="txtTotalAmt" runat="server" Enabled="False"></asp:TextBox>
                     <br />
+                    <br />
                 </td></tr>
            <tr ><td style="padding-left:500px"> 
                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" style="border-radius=10px" OnClick="Button1_Click" BorderStyle="Ridge" BackColor="#669999" BorderColor="#669999"/>
 
-                </td></tr></table>
+                
+
+                </td><td><asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="Check Amount" /></td></tr></table>
             <br />
-            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:TravellingConnectionString %>" SelectCommand="SELECT CarName, ID FROM Car WHERE (IsAvailable = @IsAvailable)">
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:TravellingConnectionString %>" SelectCommand="SELECT CarName, ID FROM Car WHERE (IsAvailable =@isAvailable)">
                 <SelectParameters>
-                    <asp:Parameter DefaultValue="true" Name="IsAvailable" Type="Boolean" />
+                    <asp:Parameter DefaultValue="true" Name="isAvailable" />
                 </SelectParameters>
             </asp:SqlDataSource>
             <br />
 
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TravellingConnectionString %>" SelectCommand="SELECT * FROM [Places]">
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TravellingConnectionString %>" SelectCommand="SELECT * FROM [Places] WHERE ([ID] = @ID)">
+                <SelectParameters>
+                    <asp:QueryStringParameter Name="ID" QueryStringField="id" Type="Int32" />
+                </SelectParameters>
             </asp:SqlDataSource>
 
         </div>

@@ -25,8 +25,20 @@ namespace Travelling
                 Label1.Visible = false;
                 LinkButton1.Visible = false;
             }
+            SqlCommand a = new SqlCommand("SELECT Sum([Period]*C.PricePerDay) FROM [dbo].[Order] as O inner join [Car] as C On C.ID=O.CarID inner join [User] as U on U.ID=O.UID where U.ID='" + Session["ID"] + "'", con);
+            SqlDataAdapter adapt = new SqlDataAdapter(a);
+            DataTable adtable = new DataTable();
+            adapt.Fill(adtable);
+            txtTotalAmt.Text = Convert.ToString(adtable.Rows[0][0]);
+
             con.Open();
             con.Close();
+        }
+        private void calculateTotal()
+        {
+            SqlConnection con = new SqlConnection("Data Source=AUNGPHYOE;Initial Catalog=Travelling;Integrated Security=True");
+
+            
         }
 
         protected void btnOrder_Click(object sender, EventArgs e)

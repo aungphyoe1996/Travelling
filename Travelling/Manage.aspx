@@ -74,13 +74,12 @@
             
             
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TravellingConnectionString %>"
-                SelectCommand="SELECT * FROM [Places]" DeleteCommand="DELETE FROM Places where ID=@ID" UpdateCommand="update [Places] set PlaceName=@PlaceName,Period=@Period,Description=@Description WHERE (ID=@ID)">
+                SelectCommand="SELECT * FROM [Places]" DeleteCommand="DELETE FROM Places where ID=@ID" UpdateCommand="update [Places] set PlaceName=@PlaceName,Description=@Description WHERE (ID=@ID)">
                 <DeleteParameters>
                     <asp:Parameter Name="ID" />
                 </DeleteParameters>
                 <UpdateParameters>
                     <asp:Parameter Name="PlaceName" />
-                    <asp:Parameter Name="Period" />
                     <asp:Parameter Name="Description" />
                     <asp:Parameter Name="ID" />
                 </UpdateParameters>
